@@ -1,8 +1,6 @@
+from app.config.database import Base, engine
 from fastapi import FastAPI
-
-from config.database import Base, engine
-from routers import auth
-import models
+from app.routers import auth, products
 
 app = FastAPI(
     title="Product Expiry Tracker API",
@@ -13,6 +11,7 @@ app = FastAPI(
 Base.metadata.create_all(bind=engine)
 
 app.include_router(auth.router)
+app.include_router(products.router)
 
 
 # @app.get("/health", tags=["health check"])

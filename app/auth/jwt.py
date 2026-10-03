@@ -1,14 +1,14 @@
-from datetime import datetime, timedelta, timezone
-import uuid
-
-from passlib.context import CryptContext
-from fastapi import Depends, HTTPException
-from jose import JWTError, jwt
-from models.user import User
 import os
-from dotenv import load_dotenv
+import uuid
+from datetime import datetime, timedelta, timezone
 from typing import Annotated
+
+from dotenv import load_dotenv
+from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
+from app.models.user import User
+from passlib.context import CryptContext
 from starlette import status
 
 load_dotenv()
@@ -18,7 +18,7 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_bearer = OAuth2PasswordBearer(tokenUrl='token')
+oauth2_bearer = OAuth2PasswordBearer(tokenUrl='api/auth/login')
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -63,3 +63,5 @@ def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         }
     except JWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Failed to validate user")
+
+user_dependancy = Annotated[dict, Depends(get_current_user)]

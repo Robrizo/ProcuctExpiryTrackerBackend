@@ -1,16 +1,15 @@
+import os
 from datetime import timedelta
 from typing import Annotated
 
+from app.auth.jwt import authenticate_user, create_access_token, get_password_hash
+from app.config.database import db_dependency
+from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-
-from auth.jwt import authenticate_user, get_password_hash, create_access_token
-from config.database import db_dependency
-from schemas.user import TokenResponse, UserCreate, UserResponse
-from models.user import User
+from app.models.user import User
+from app.schemas.user import TokenResponse, UserCreate, UserResponse
 from starlette import status
-import os
-from dotenv import load_dotenv
 
 load_dotenv()
 

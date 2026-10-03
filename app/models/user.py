@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 import uuid
 from sqlalchemy import Column, Uuid, String, DateTime, Uuid
 from sqlalchemy.orm import relationship
-from config.database import Base
+from app.config.database import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -22,4 +22,4 @@ class User(Base):
         nullable=False
         )
     
-    #products = relationship("Product", back_populates="owner", cascade="all, delete-orphan")
+    products = relationship("Product", back_populates="owner", cascade="all, delete-orphan")

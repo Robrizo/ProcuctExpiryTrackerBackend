@@ -1,8 +1,11 @@
-from datetime import datetime, timezone
 import uuid
-from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, Uuid, String, DateTime, Uuid, Text
+from datetime import datetime, timezone
+
+from app.config.database import Base
+from sqlalchemy import (Boolean, Column, Date, DateTime, ForeignKey, Integer,
+                        String, Text, Uuid)
 from sqlalchemy.orm import relationship
-from config.database import Base
+
 
 class Product(Base):
     __tablename__ = "products"
@@ -24,4 +27,4 @@ class Product(Base):
         nullable=False,
     )
 
-    #owner = relationship("User", back_populates="products")
+    owner = relationship("User", back_populates="products")

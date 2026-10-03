@@ -1,6 +1,8 @@
-from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field
 import uuid
+from datetime import datetime
+
+from pydantic import BaseModel, EmailStr, Field
+
 
 class UserCreate(BaseModel):
     username: str = Field(..., min_length=2, max_length=50)
@@ -27,7 +29,7 @@ class UserResponse(BaseModel):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserLoginSchema(BaseModel):
     username: str = Field(..., min_length=2, max_length=50)
