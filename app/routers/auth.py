@@ -2,14 +2,17 @@ import os
 from datetime import timedelta
 from typing import Annotated
 
-from app.auth.jwt import authenticate_user, create_access_token, get_password_hash
-from app.config.database import db_dependency
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
+from starlette import status
+
+from app.auth.jwt import (authenticate_user, create_access_token,
+                          get_password_hash)
+from app.config.database import db_dependency
 from app.models.user import User
 from app.schemas.user import TokenResponse, UserCreate, UserResponse
-from starlette import status
+from app.auth.jwt import user_dependancy
 
 load_dotenv()
 
@@ -55,3 +58,12 @@ def login_user(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: d
         "access_token": token,
         "token_type": "bearer"
     }
+
+@router.get("/me", response_model=UserResponse)
+def get_current_user_info(user: user_dependancy, db: db_dependency):
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="failed authentication")
+    user_data = db.query(User).filter(User.id == user.get("user_id")).first()
+    if not user_data:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return user_data

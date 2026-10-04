@@ -7,9 +7,10 @@ from dotenv import load_dotenv
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from app.models.user import User
 from passlib.context import CryptContext
 from starlette import status
+
+from app.models.user import User
 
 load_dotenv()
 
