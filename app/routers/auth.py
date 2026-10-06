@@ -58,12 +58,3 @@ def login_user(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: d
         "access_token": token,
         "token_type": "bearer"
     }
-
-@router.get("/me", response_model=UserResponse)
-def get_current_user_info(user: user_dependancy, db: db_dependency):
-    if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="failed authentication")
-    user_data = db.query(User).filter(User.id == user.get("user_id")).first()
-    if not user_data:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
-    return user_data

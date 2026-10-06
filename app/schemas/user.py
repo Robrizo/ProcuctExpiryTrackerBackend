@@ -18,7 +18,10 @@ class UserUpdate(BaseModel):
     last_name: str = Field(None, min_length=2, max_length=120)
     email: EmailStr = Field(None)
     role: str = Field(None, max_length=50)
-    password: str = Field(None, min_length=6, max_length=100)
+
+class UserUpdatePassword(BaseModel):
+    current_password: str = Field(..., min_length=6, max_length=100)
+    new_password: str = Field(..., min_length=6, max_length=100)
 
 class UserResponse(BaseModel):
     id: uuid.UUID

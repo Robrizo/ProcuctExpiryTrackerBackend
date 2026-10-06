@@ -1,6 +1,11 @@
-from app.config.database import Base, engine
 from fastapi import FastAPI
-from app.routers import auth, products
+
+from app.config.database import Base, engine
+from app.routers import auth, products, user
+from fastapi.middleware.cors import CORSMiddleware
+
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Product Expiry Tracker API",
@@ -8,15 +13,22 @@ app = FastAPI(
     version="1.0.0",
 )
 
-Base.metadata.create_all(bind=engine)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(auth.router)
 app.include_router(products.router)
+app.include_router(user.router)
 
 
-# @app.get("/health", tags=["health check"])
-# def health_check():
-#     return {
-#         "status": "Ok",
-#         "service": "Product Expiry Tracker API",
-#     }
+@app.get("/health", tags=["health check"])
+def health_check():
+    return {
+        "status": "Ok",
+        "service": "Product Expiry Tracker API",
+    }
