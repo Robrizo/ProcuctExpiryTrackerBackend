@@ -16,8 +16,8 @@ class ProductBase(BaseModel):
     @field_validator("expiry_date")
     @classmethod
     def validate_expiry_date(cls, value: date):
-        if value <= date.today():
-            raise ValueError("Expiry date must be in the future")
+        if value < date.today():
+            raise ValueError("Expiry date cannot be in the past")
         return value
 
     @field_validator("purchase_date")

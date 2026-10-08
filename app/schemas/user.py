@@ -34,7 +34,7 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True
 
-class UserLoginSchema(BaseModel):
+class UserLogin(BaseModel):
     username: str = Field(..., min_length=2, max_length=50)
     password: str = Field(..., min_length=6, max_length=100)
 

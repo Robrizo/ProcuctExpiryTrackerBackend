@@ -11,7 +11,7 @@ from app.auth.jwt import (authenticate_user, create_access_token,
                           get_password_hash)
 from app.config.database import db_dependency
 from app.models.user import User
-from app.schemas.user import TokenResponse, UserCreate, UserResponse
+from app.schemas.user import TokenResponse, UserCreate, UserLogin, UserResponse
 from app.auth.jwt import user_dependancy
 
 load_dotenv()
@@ -48,7 +48,7 @@ def register_user(db: db_dependency, user: UserCreate):
     return new_user
 
 @router.post("/login", response_model=TokenResponse)
-def login_user(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: db_dependency):
+def login_user(form_data: UserLogin, db: db_dependency):
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
