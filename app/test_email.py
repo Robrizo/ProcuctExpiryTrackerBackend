@@ -13,7 +13,7 @@ async def send_test_email():
 
     message = EmailMessage()
     message["From"] = email_settings.SMTP_FROM
-    message["To"] = email_settings.SMTP_USERNAME
+    message["To"] = "taongakamanga371@gmail.com"
     message["Subject"] = "SMTP Test - Product Expiry Tracker"
 
     message.set_content(

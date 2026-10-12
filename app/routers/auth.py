@@ -38,7 +38,6 @@ def register_user(db: db_dependency, user: UserCreate):
         last_name=user.last_name,
         email=user.email,
         password_hash=get_password_hash(user.password),
-        role=user.role
     )
 
     db.add(new_user)
