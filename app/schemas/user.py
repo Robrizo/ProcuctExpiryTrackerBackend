@@ -25,6 +25,8 @@ class UserUpdatePassword(BaseModel):
 class UserResponse(BaseModel):
     id: uuid.UUID
     username: str
+    first_name: str
+    last_name: str
     email: EmailStr
     role: str
     created_at: datetime

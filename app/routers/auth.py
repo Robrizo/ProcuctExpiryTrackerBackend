@@ -50,7 +50,7 @@ def register_user(db: db_dependency, user: UserCreate):
 def login_user(form_data: UserLogin, db: db_dependency):
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        raise HTTPException(status_code=401, detail="Invalid credentials, please try again.")
     token = create_access_token(user.username, user.id, user.role, timedelta(minutes=EXPIRE_MINUTES))
 
     return {
