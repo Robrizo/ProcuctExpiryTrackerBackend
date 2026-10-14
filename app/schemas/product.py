@@ -13,20 +13,6 @@ class ProductBase(BaseModel):
     expiry_date: date 
     notes: str | None = Field(default=None, min_length=3, max_length=500)
 
-    @field_validator("expiry_date")
-    @classmethod
-    def validate_expiry_date(cls, value: date):
-        if value < date.today():
-            raise ValueError("Expiry date cannot be in the past")
-        return value
-
-    @field_validator("purchase_date")
-    @classmethod
-    def validate_purchase_date(cls, value: date):
-        if value > date.today():
-            raise ValueError("Purchase date cannot be in the future")
-        return value
-
 class ProductCreate(ProductBase):
     pass
 
