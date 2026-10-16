@@ -1,9 +1,13 @@
+import os
+
+from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.config.database import Base, engine
 from app.routers import auth, products, user
-from fastapi.middleware.cors import CORSMiddleware
 
+load_dotenv()
 
 Base.metadata.create_all(bind=engine)
 
@@ -13,9 +17,11 @@ app = FastAPI(
     version="1.0.0",
 )
 
+cors_origin = os.getenv("CORS_ORIGINS")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:3000", "http://localhost:3000"],
+    allow_origins=[cors_origin],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

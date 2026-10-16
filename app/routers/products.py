@@ -54,6 +54,10 @@ def get_product(product_id: uuid.UUID, user: user_dependancy, db: db_dependency)
 def create_product(user: user_dependancy, db: db_dependency, product: ProductCreate):
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="failed authentication, you cannot create a product")
+
+    if product.purchase_date > product.expiry_date:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail="Expiry date cannot be earlier than purchase date.")
+    
     new_product = Product(
         user_id=user["user_id"],
         name=product.name,
