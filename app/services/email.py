@@ -37,7 +37,7 @@ Product Expiry Tracker"""
     }
     sent_emails_log.append(record)
 
-    if not email_settings.SMTP_ENABLED or not email_settings.SMTP_USERNAME or not email_settings.SMTP_PASSWORD:
+    if not email_settings.SMTP_ENABLE or not email_settings.SMTP_USERNAME or not email_settings.SMTP_PASSWORD:
         logger.info(f"[SIMULATED EMAIL] To: {user_email} | Subject: {subject} | Product: {product_name}")
         return True
 
@@ -50,7 +50,7 @@ Product Expiry Tracker"""
         part = MIMEText(body_text, "plain")
         msg.attach(part)
 
-        with smtplib.SMTP(email_settings.SMTP_HOST, email_settings.SMTP_PORT, timeout=10) as server:
+        with smtplib.SMTP(email_settings.SMTP_SERVER, email_settings.SMTP_PORT, timeout=10) as server:
             server.ehlo()
             server.starttls()
             server.login(email_settings.SMTP_USERNAME, email_settings.SMTP_PASSWORD)
