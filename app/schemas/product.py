@@ -11,7 +11,7 @@ class ProductBase(BaseModel):
     quantity: int = Field(..., ge=1)
     purchase_date: date
     expiry_date: date 
-    notes: str | None = Field(default=None, min_length=3, max_length=500)
+    notes: str | None = Field(default=None, max_length=500)
 
 class ProductCreate(ProductBase):
     pass
