@@ -1,5 +1,6 @@
 import logging
 import smtplib
+from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -34,6 +35,7 @@ Product Expiry Tracker"""
         "expiry_date": expiry_date_str,
         "subject": subject,
         "body": body_text,
+        "sent_at": datetime.now(timezone.utc).isoformat(),
     }
     sent_emails_log.append(record)
 

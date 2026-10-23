@@ -125,12 +125,18 @@ def manual_expiry_check(db: db_dependency):
 
 
 @app.get("/api/notifications/logs", tags=["Tasks"])
-def get_notification_logs(current_user: user_dependancy):
+def get_notification_logs(current_user: user_dependancy, db: db_dependency):
     # Return email reminders for the logged-in user.
+    from app.models.user import User
+
+    user_data = db.query(User).filter(User.id == current_user.get("user_id")).first()
+    if not user_data:
+        return {"notifications": []}
+
     user_logs = [
         log
         for log in sent_emails_log
-        if log.get("recipient") == current_user.email
+        if log.get("recipient") == user_data.email
     ]
 
     return {"notifications": user_logs}
