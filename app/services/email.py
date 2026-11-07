@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 
 from dotenv import load_dotenv
 
-from app.config.email import email_settings
+from config.email import email_settings
 
 load_dotenv()
 logger = logging.getLogger("expiry_tracker.email")

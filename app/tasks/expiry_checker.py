@@ -1,9 +1,9 @@
 from datetime import date,timedelta, datetime, timezone
 import logging
 from sqlalchemy.orm import Session
-from app.models.product import Product
-from app.models.user import User
-from app.services.email import send_expiry_reminder
+from models.product import Product
+from models.user import User
+from services.email import send_expiry_reminder
 
 logger = logging.getLogger("expiry_tracker.tasks")
 

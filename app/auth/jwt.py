@@ -10,7 +10,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from starlette import status
 
-from app.models.user import User
+from models.user import User
 
 load_dotenv()
 

@@ -7,12 +7,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
 
-from app.auth.jwt import (authenticate_user, create_access_token,
+from auth.jwt import (authenticate_user, create_access_token,
                           create_refresh_token, get_password_hash,
                           user_dependancy, verify_refresh_token)
-from app.config.database import db_dependency
-from app.models.user import User
-from app.schemas.user import (RefreshTokenRequest, TokenResponse, UserCreate,
+from config.database import db_dependency
+from models.user import User
+from schemas.user import (RefreshTokenRequest, TokenResponse, UserCreate,
                               UserLogin, UserResponse)
 
 load_dotenv()

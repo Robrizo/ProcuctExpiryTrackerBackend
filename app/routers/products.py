@@ -5,11 +5,11 @@ import uuid
 from fastapi import APIRouter, HTTPException
 from starlette import status
 
-from app.auth.jwt import user_dependancy
-from app.config.database import db_dependency
-from app.models.product import Product
-from app.schemas.product import ProductCreate, ProductResponse, ProductUpdate
-from app.tasks.expiry_checker import calculate_status
+from auth.jwt import user_dependancy
+from config.database import db_dependency
+from models.product import Product
+from schemas.product import ProductCreate, ProductResponse, ProductUpdate
+from tasks.expiry_checker import calculate_status
 
 router = APIRouter(
     prefix="/api/products",

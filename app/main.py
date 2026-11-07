@@ -8,11 +8,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from app.auth.jwt import user_dependancy
-from app.config.database import Base, SessionLocal, db_dependency, engine
-from app.routers import auth, products, user
-from app.services.email import sent_emails_log
-from app.tasks.expiry_checker import check_and_send_expiry_reminders
+from auth.jwt import user_dependancy
+from config.database import Base, SessionLocal, db_dependency, engine
+from routers import auth, products, user
+from services.email import sent_emails_log
+from tasks.expiry_checker import check_and_send_expiry_reminders
 
 load_dotenv()
 

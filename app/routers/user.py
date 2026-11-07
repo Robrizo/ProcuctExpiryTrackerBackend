@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from starlette import status
 
-from app.auth.jwt import get_password_hash, user_dependancy, verify_password
-from app.config.database import db_dependency
-from app.models.user import User
-from app.schemas.user import UserResponse, UserUpdate, UserUpdatePassword
+from auth.jwt import get_password_hash, user_dependancy, verify_password
+from config.database import db_dependency
+from models.user import User
+from schemas.user import UserResponse, UserUpdate, UserUpdatePassword
 
 router = APIRouter(
     prefix="/api/user",

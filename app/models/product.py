@@ -5,7 +5,7 @@ from sqlalchemy import (Boolean, Column, Date, DateTime, ForeignKey, Integer,
                         String, Text, Uuid)
 from sqlalchemy.orm import relationship
 
-from app.config.database import Base
+from config.database import Base
 
 
 class Product(Base):
