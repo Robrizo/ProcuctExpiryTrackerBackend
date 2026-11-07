@@ -1,6 +1,6 @@
 import os
 from typing import Annotated
-from urllib.parse import quote_plus
+# from urllib.parse import quote_plus
 
 from dotenv import load_dotenv
 from fastapi import Depends
@@ -10,11 +10,11 @@ from sqlalchemy.orm import Session, sessionmaker
 
 load_dotenv()
 
-password = quote_plus(os.getenv("DATABASE_PASSWORD"))
-username = os.getenv("DATABASE_USER")
-host = os.getenv("DATABASE_HOST")
-port = os.getenv("DATABASE_PORT")
-name = os.getenv("DATABASE_NAME")
+# password = quote_plus(os.getenv("DATABASE_PASSWORD"))
+# username = os.getenv("DATABASE_USER")
+# host = os.getenv("DATABASE_HOST")
+# port = os.getenv("DATABASE_PORT")
+# name = os.getenv("DATABASE_NAME")
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
