@@ -3,15 +3,15 @@ import os
 from contextlib import asynccontextmanager
 
 from apscheduler.schedulers.background import BackgroundScheduler
+from auth.jwt import user_dependancy
+from config.database import Base, SessionLocal, db_dependency, engine
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-
-from auth.jwt import user_dependancy
-from config.database import Base, SessionLocal, db_dependency, engine
+from models.user import User
 from routers import auth, products, user
 from services.email import sent_emails_log
+from sqlalchemy.orm import Session
 from tasks.expiry_checker import check_and_send_expiry_reminders
 
 load_dotenv()
@@ -127,7 +127,6 @@ def manual_expiry_check(db: db_dependency):
 @app.get("/api/notifications/logs", tags=["Tasks"])
 def get_notification_logs(current_user: user_dependancy, db: db_dependency):
     # Return email reminders for the logged-in user.
-    from app.models.user import User
 
     user_data = db.query(User).filter(User.id == current_user.get("user_id")).first()
     if not user_data:
